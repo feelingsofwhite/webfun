@@ -1,5 +1,11 @@
 var gulp = require('gulp');
 var console = require('console');
+var del = require('del');
+
+gulp.task('clean', function() {
+    console.log('removing dest/**/*')
+    del('dest');
+});
 
 gulp.task('build', ['copySrc', 'copyLibs']);
 
@@ -13,9 +19,13 @@ gulp.task('copySrc', function(){
         .pipe(gulp.dest('dest'));
 });
 
-gulp.task('default', function() {
-  // place code for your default task here
-  console.info('hello from gulp world');
+gulp.task('watch', function() {
+    console.log('watching...');
+    var watcher = gulp.watch('src/**/*', ['copySrc']);
+    watcher.on('change', function(event) {
+      console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+    });
 
 });
 
+gulp.task('default', ['clean', 'build']);
