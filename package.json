@@ -11,5 +11,13 @@
     "url": "."
   },
   "author": "james@feelingsofwhite.com",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "^1.4.1",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-typescript": "^2.7.7",
+    "merge2": "^0.3.6",
+    "typescript": "^1.4.1"
+  }
 }
