@@ -8,4 +8,5 @@ but we've got
     so gulp-typescript is implied
     
   bower w/
-    
+    angular
+    lodash (just to have  some other dependency)
