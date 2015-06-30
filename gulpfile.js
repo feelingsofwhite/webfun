@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var console = require('console');
 var del = require('del');
+var webserver = require('gulp-webserver');
 
 gulp.task('clean', function() {
     console.log('removing dest/**/*')
@@ -19,6 +20,25 @@ gulp.task('copySrc', function(){
         .pipe(gulp.dest('dest'));
 });
 
+
+// more options.. cant get it working :(  
+gulp.task('webserver', function() {
+  var port = 2001; //a space odyssey
+  console.log('server started')
+  gulp.task('webserver', function() {
+  gulp.src('app')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      open: true,
+      path: 'dest',
+      fallback:'index.html',
+      port: port
+    }));
+});
+  console.log('server finished')
+});
+
 gulp.task('watch', function() {
     console.log('watching...');
     var watcher = gulp.watch('src/**/*', ['copySrc']);
@@ -28,4 +48,4 @@ gulp.task('watch', function() {
 
 });
 
-gulp.task('default', ['clean', 'build', 'watch']);
+gulp.task('default', ['clean', 'build', 'webserver', 'watch']);
