@@ -31,7 +31,6 @@ gulp.task('connect', function() {
     livereload: true,
     port: port
   });
-  console.log('server finished')
 });
 
 gulp.task('launch', function(){
