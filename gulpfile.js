@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var console = require('console');
 var del = require('del');
 var connect = require('gulp-connect');
-var open = require('gulp-open');
+var open = require('open');
 
 gulp.task('clean', function() {
     console.log('removing dest/**/*')
@@ -22,7 +22,6 @@ gulp.task('copySrc', function(){
         .pipe(connect.reload());
 });
 
-
 gulp.task('connect', function() {
   var port = 2001; //a space odyssey
   console.log('server started')
@@ -34,15 +33,10 @@ gulp.task('connect', function() {
 });
 
 gulp.task('launch', function(){
-  console.log('launching browser')
-  var options = {
-    url: 'http://localhost:2001'
-    //app: 'google-chrome'
-  }
-  gulp
-    .src('src/index.html')  //src works, dest doesn't :(
-    .pipe(open('', options));
+  console.log('launching browser');
+  open('http://localhost:2001');
 }) 
+
 gulp.task('watch', function() {
     console.log('watching...');
     var watcher = gulp.watch('src/**/*', ['copySrc']);
