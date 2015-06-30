@@ -4,7 +4,7 @@ var del = require('del');
 
 gulp.task('clean', function() {
     console.log('removing dest/**/*')
-    del('dest');
+    del.sync('dest');
 });
 
 gulp.task('build', ['copySrc', 'copyLibs']);
@@ -28,4 +28,4 @@ gulp.task('watch', function() {
 
 });
 
-gulp.task('default', ['clean', 'build']);
+gulp.task('default', ['clean', 'build', 'watch']);
