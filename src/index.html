@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html ng-app="MainApp">
+<html >
 <head>
-    <!-- <link   type="text/css" rel="stylesheet" href="scripts/angular/angular-csp.css" /> -->
-    <!-- <script type="text/javascript" src="scripts/angular/angular.js" /> -->
-    <!-- <script type="text/javascript" src="scripts/angular/angular.min.js"/> -->
-    <!-- <script type="text/javascript" src="scripts/angular/angular.min.js.map"/> -->
-    <!-- <script type="text/javascript" src="scripts/lodash/lodash.js" /> -->
-    <!-- <script type="text/javascript" src="scripts/lodash/lodash.min.js"/> -->
-    <!-- <script type="text/javascript" src="scripts/app.js" /> -->
+    <!-- <link   type="text/css" rel="stylesheet" href="scripts/angular/angular-csp.css" ></script> -->
+    <script src="scripts/angular/angular.js"></script>
+    <!-- <script type="text/javascript" src="scripts/angular/angular.min.js"></script> -->
+    <!-- <script type="text/javascript" src="scripts/angular/angular.min.js.map"></script> -->
+    <script type="text/javascript" src="scripts/lodash/lodash.js" ></script>
+    <!-- <script type="text/javascript" src="scripts/lodash/lodash.min.js"></script> -->
+    <script type="text/javascript" src="scripts/app.js" ></script>
 </head>
-<body>
-    <div ng-controller"MainCtrl as main">
+<body ng-app="mainApp">
+    <div ng-controller="mainCtrl as main">
         controller sez: "<span ng-bind="main.message"></span>"
     </div>
 </body>

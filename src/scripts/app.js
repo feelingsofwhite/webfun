@@ -1,5 +1,8 @@
-var myapp = angular.module('MainApp', [])
-myapp.controller('MainCtrl', function() {
+
+function myCtrl() {
     var vm = this;
     vm.message = "hello world";
-});
+}
+
+angular.module('mainApp', [])
+    .controller('mainCtrl', myCtrl);
