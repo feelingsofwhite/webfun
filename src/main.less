@@ -1,0 +1,19 @@
+body {
+    font-size: 125%;
+}
+
+.boxy {
+    border:2px solid darkgrey;
+    padding: 1em 2em 1em 2em;
+
+    .message {
+        font-style:italic;
+    }
+    margin-bottom: 1em;
+}
+
+.message::before,
+.message::after {content: '"'}
+.message {
+    font-family: fantasy;
+}
