@@ -6,6 +6,7 @@ var open = require('open');
 var less = require('gulp-less');
 var path = require('path');
 var sourcemaps = require('gulp-sourcemaps');
+var jslint = require('gulp-jslint');
 
 gulp.task('clean', function() {
     console.log('removing dest/**/*')
@@ -15,15 +16,34 @@ gulp.task('clean', function() {
 gulp.task('build', ['copySrc', 'copyLibs', 'less']);
 
 gulp.task('copyLibs', function(){
-    gulp.src(['bower_components/**/*.css', 'bower_components/**/*.js', 'bower_components/**/*.map', '!bower_components/angular/index.js'])
+    return gulp.src(['bower_components/**/*.css', 'bower_components/**/*.js', 'bower_components/**/*.map', '!bower_components/angular/index.js'])
         .pipe(gulp.dest('dest/scripts'));
 });
 
 gulp.task('copySrc', function(){
-    gulp.src('src/**/*')
+    return gulp.src('src/**/*')
         .pipe(gulp.dest('dest'))
         .pipe(connect.reload());
 });
+
+function lintCore(){
+   return gulp.src('src/**/*.js')
+        .pipe(jslint(
+          { global: ['angular', '_']}
+        ));
+}
+
+gulp.task('lint', function(){
+    return lintCore();
+});
+
+gulp.task('lintNoFail', function(cb){
+    return lintCore()
+        .on('error', function (error) {
+      console.error(String(error));
+    });
+});
+
 
 gulp.task('less', function(){
     gulp.src('src/**/*.less')
@@ -55,11 +75,9 @@ gulp.task('watch', function() {
     console.log('watching...');
     var logevent = function(event) {
       console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-    }
-    var watcher = gulp.watch('src/**/*', ['copySrc']).on('change', logevent);
-    var watcher = gulp.watch('src/**/*.less', ['less']).on('change', logevent);
-    
-
+    };
+    gulp.watch('src/**/*', ['lintNoFail','copySrc']).on('change', logevent);
+    gulp.watch('src/**/*.less', ['less']).on('change', logevent);
 });
 
-gulp.task('default', ['clean', 'build', 'connect', 'launch', 'watch']);
+gulp.task('default', ['clean', 'build', 'lint', 'connect', 'launch', 'watch']);
