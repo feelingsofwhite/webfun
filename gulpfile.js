@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var console = require('console');
 var del = require('del');
 var connect = require('gulp-connect');
-var open = require('gulp-open');
+var open = require('open');
 var less = require('gulp-less');
 var path = require('path');
 var sourcemaps = require('gulp-sourcemaps');
@@ -47,15 +47,10 @@ gulp.task('connect', function() {
 });
 
 gulp.task('launch', function(){
-  console.log('launching browser')
-  var options = {
-    url: 'http://localhost:2001'
-    //app: 'google-chrome'
-  }
-  gulp
-    .src('src/index.html')  //src works, dest doesn't :(
-    .pipe(open('', options));
+  console.log('launching browser');
+  open('http://localhost:2001');
 }) 
+
 gulp.task('watch', function() {
     console.log('watching...');
     var logevent = function(event) {
