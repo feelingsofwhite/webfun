@@ -8,7 +8,7 @@ var path = require('path');
 var sourcemaps = require('gulp-sourcemaps');
 var jslint = require('gulp-jslint');
 var plumber = require('gulp-plumber');
-var util = require('gulp-util');
+var beep = require('beepbeep');
 
 gulp.task('clean', function() {
     console.log('removing dest/**/*')
@@ -33,7 +33,7 @@ gulp.task('lint', function(){
       .src('src/**/*.js')
       .pipe(plumber({
             errorHandler: function(e){
-                  util.beep();
+                  beep();
                   console.log(e);
                   this.emit('end');
               }
