@@ -7,6 +7,8 @@ var less = require('gulp-less');
 var path = require('path');
 var sourcemaps = require('gulp-sourcemaps');
 var jslint = require('gulp-jslint');
+var jshint = require('gulp-jshint');
+var jshintStylish = require('jshint-stylish')
 var plumber = require('gulp-plumber');
 var beep = require('beepbeep');
 
@@ -28,7 +30,7 @@ gulp.task('copySrc', function(){
         .pipe(connect.reload());
 });
 
-gulp.task('lint', function(){
+gulp.task('lintAndHint', function(){
     return gulp
       .src('src/**/*.js')
       .pipe(plumber({
@@ -40,7 +42,9 @@ gulp.task('lint', function(){
           }))
        .pipe(jslint(
           { global: ['angular', '_']}
-        ));
+        ))
+       .pipe(jshint())
+       .pipe(jshint.reporter(jshintStylish));
 });
 
 
@@ -75,8 +79,8 @@ gulp.task('watch', function() {
     var logevent = function(event) {
       console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     };
-    gulp.watch('src/**/*', ['lint','copySrc']).on('change', logevent);
+    gulp.watch('src/**/*', ['lintAndHint','copySrc']).on('change', logevent);
     gulp.watch('src/**/*.less', ['less']).on('change', logevent);
 });
 
-gulp.task('default', ['clean', 'build', 'lint', 'connect', 'launch', 'watch']);
+gulp.task('default', ['clean', 'build', 'lintAndHint', 'connect', 'launch', 'watch']);
