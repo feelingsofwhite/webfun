@@ -7,6 +7,8 @@ var less = require('gulp-less');
 var path = require('path');
 var sourcemaps = require('gulp-sourcemaps');
 var jslint = require('gulp-jslint');
+var plumber = require('gulp-plumber');
+var util = require('gulp-util');
 
 gulp.task('clean', function() {
     console.log('removing dest/**/*')
@@ -26,22 +28,19 @@ gulp.task('copySrc', function(){
         .pipe(connect.reload());
 });
 
-function lintCore(){
-   return gulp.src('src/**/*.js')
-        .pipe(jslint(
+gulp.task('lint', function(){
+    return gulp
+      .src('src/**/*.js')
+      .pipe(plumber({
+            errorHandler: function(e){
+                  util.beep();
+                  console.log(e);
+                  this.emit('end');
+              }
+          }))
+       .pipe(jslint(
           { global: ['angular', '_']}
         ));
-}
-
-gulp.task('lint', function(){
-    return lintCore();
-});
-
-gulp.task('lintNoFail', function(cb){
-    return lintCore()
-        .on('error', function (error) {
-      console.error(String(error));
-    });
 });
 
 
@@ -76,7 +75,7 @@ gulp.task('watch', function() {
     var logevent = function(event) {
       console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     };
-    gulp.watch('src/**/*', ['lintNoFail','copySrc']).on('change', logevent);
+    gulp.watch('src/**/*', ['lint','copySrc']).on('change', logevent);
     gulp.watch('src/**/*.less', ['less']).on('change', logevent);
 });
 
