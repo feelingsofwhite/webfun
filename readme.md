@@ -1,12 +1,12 @@
 run and go
-npm install
-bower install
-gulp
+````
+    npm install
+    bower install
+    gulp
+````
 
+things i'd like to mess with
 
-so, more of a goals at this point
-
-but we've got
   typescript
   gulp w/
     merge2
