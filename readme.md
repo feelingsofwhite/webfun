@@ -1,3 +1,9 @@
+run and go
+npm install
+bower install
+gulp
+
+
 so, more of a goals at this point
 
 but we've got
